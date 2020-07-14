@@ -1,0 +1,4 @@
+classifier:
+  class: sklearn.neighbors.KNeighborsClassifier
+  params:
+    n_neighbors: 1

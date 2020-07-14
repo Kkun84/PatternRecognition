@@ -1,0 +1,7 @@
+defaults:
+  - classifier: svm
+
+aug_n: 5
+transforms:
+
+seed: 0
