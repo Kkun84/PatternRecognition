@@ -1,0 +1,5 @@
+aug_n: 0
+classifier:
+  class: sklearn.svm.SVC
+seed: 0
+transforms: null

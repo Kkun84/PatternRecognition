@@ -1,0 +1,20 @@
+aug_n: 15
+classifier:
+  class: sklearn.svm.SVC
+seed: 0
+transforms:
+- class: torchvision.transforms.RandomAffine
+  params:
+    degrees: 15
+- class: torchvision.transforms.RandomAffine
+  params:
+    degrees: 0
+    scale:
+    - 0.8
+    - 1.2
+- class: torchvision.transforms.ToTensor
+- class: add_noise.AddNoise
+  params:
+    mean: 0
+    std: 0.01
+- class: torchvision.transforms.ToPILImage

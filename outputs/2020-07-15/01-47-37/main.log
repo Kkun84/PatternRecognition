@@ -1,0 +1,91 @@
+[2020-07-15 01:47:37,621][__main__][INFO] - 
+aug_n: 15
+classifier:
+  class: sklearn.svm.SVC
+seed: 0
+transforms:
+- class: torchvision.transforms.RandomAffine
+  params:
+    degrees: 15
+- class: torchvision.transforms.RandomAffine
+  params:
+    degrees: 0
+    scale:
+    - 0.8
+    - 1.2
+- class: torchvision.transforms.ToTensor
+- class: add_noise.AddDots
+  params:
+    n: 10
+    value: 0
+- class: add_noise.AddDots
+  params:
+    n: 10
+    value: 1
+- class: torchvision.transforms.ToPILImage
+
+[2020-07-15 01:47:37,622][__main__][INFO] - train_list, test_list
+[2020-07-15 01:47:37,673][__main__][INFO] - len(train_list)=2000
+[2020-07-15 01:47:37,673][__main__][INFO] - len(test_list)=10000
+[2020-07-15 01:47:37,673][__main__][INFO] - train_images, test_images
+[2020-07-15 01:47:38,018][__main__][INFO] - len(image_list)=2000
+[2020-07-15 01:47:38,969][__main__][INFO] - len(image_list)=10000
+[2020-07-15 01:47:38,969][__main__][INFO] - train_class, test_class
+[2020-07-15 01:47:38,969][__main__][INFO] - len(class_list)=2000
+[2020-07-15 01:47:38,971][__main__][INFO] - len(class_list)=10000
+[2020-07-15 01:47:38,972][__main__][INFO] - transforms=Compose(
+    RandomAffine(degrees=(-15, 15))
+    RandomAffine(degrees=(0, 0), scale=[0.8, 1.2])
+    ToTensor()
+    <add_noise.AddDots object at 0x7f745a63ceb0>
+    <add_noise.AddDots object at 0x7f745a64a760>
+    ToPILImage()
+)
+[2020-07-15 01:47:52,183][__main__][INFO] - len(image_list)=32000
+[2020-07-15 01:47:52,183][__main__][INFO] - len(class_list)=32000
+[2020-07-15 01:47:53,014][__main__][INFO] - classifier.fit
+[2020-07-15 01:56:46,055][__main__][INFO] - classifier.predict
+[2020-07-15 01:59:24,520][__main__][INFO] - confusion_matrix=
+[[966   0   4   2   1  10  10   0   7   0]
+ [  0 978   4   5   0   3   3   2   4   1]
+ [  7   8 879   9  17   8  25  14  28   5]
+ [ 10   9  21 859   0  56   4  11  25   5]
+ [  9   5   9   1 839   7  45   2  21  62]
+ [ 20  29   4  32   3 867  18   1  21   5]
+ [ 18  14  20   2   3  41 894   0   8   0]
+ [  7  28  23   7  14   4   0 869  14  34]
+ [  4  26   9  23   3  27  11   2 879  16]
+ [ 10   9  14  15  34   3   2  32  50 831]]
+[2020-07-15 01:59:24,521][__main__][INFO] - confusion_matrix_prob=
+[[0.966 0.    0.004 0.002 0.001 0.01  0.01  0.    0.007 0.   ]
+ [0.    0.978 0.004 0.005 0.    0.003 0.003 0.002 0.004 0.001]
+ [0.007 0.008 0.879 0.009 0.017 0.008 0.025 0.014 0.028 0.005]
+ [0.01  0.009 0.021 0.859 0.    0.056 0.004 0.011 0.025 0.005]
+ [0.009 0.005 0.009 0.001 0.839 0.007 0.045 0.002 0.021 0.062]
+ [0.02  0.029 0.004 0.032 0.003 0.867 0.018 0.001 0.021 0.005]
+ [0.018 0.014 0.02  0.002 0.003 0.041 0.894 0.    0.008 0.   ]
+ [0.007 0.028 0.023 0.007 0.014 0.004 0.    0.869 0.014 0.034]
+ [0.004 0.026 0.009 0.023 0.003 0.027 0.011 0.002 0.879 0.016]
+ [0.01  0.009 0.014 0.015 0.034 0.003 0.002 0.032 0.05  0.831]]
+[2020-07-15 01:59:24,523][__main__][INFO] - ac_score=0.8861
+[2020-07-15 01:59:24,523][__main__][INFO] - best  1: 0.978
+[2020-07-15 01:59:24,523][__main__][INFO] - worst 9: 0.831
+[2020-07-15 01:59:24,523][__main__][INFO] - max_index=(4, 9): 62
+[2020-07-15 01:59:24,533][__main__][INFO] - classification_report=
+              precision    recall  f1-score   support
+
+           0     0.9191    0.9660    0.9420      1000
+           1     0.8843    0.9780    0.9288      1000
+           2     0.8906    0.8790    0.8848      1000
+           3     0.8995    0.8590    0.8788      1000
+           4     0.9179    0.8390    0.8767      1000
+           5     0.8450    0.8670    0.8559      1000
+           6     0.8834    0.8940    0.8887      1000
+           7     0.9314    0.8690    0.8991      1000
+           8     0.8316    0.8790    0.8546      1000
+           9     0.8665    0.8310    0.8484      1000
+
+    accuracy                         0.8861     10000
+   macro avg     0.8869    0.8861    0.8858     10000
+weighted avg     0.8869    0.8861    0.8858     10000
+
