@@ -46,7 +46,9 @@ def augment(image_list, class_list, transforms, aug_n):
 
 @hydra.main(config_path='../config/config.yaml')
 def main(config):
+    logger.info(f"\n{config.pretty()}")
     print(config)
+
     random.seed(config.seed)
     np.random.seed(config.seed)
     torch.manual_seed(config.seed)
@@ -67,15 +69,26 @@ def main(config):
     train_images, test_images = [np.stack([np.array(i).reshape(-1) for i in image_list]) for image_list in [train_images, test_images]]
 
     classifier = hydra.utils.instantiate(config.classifier)
+    logger.info('classifier.fit')
     classifier.fit(train_images, train_class)
+    logger.info('classifier.predict')
     predict = classifier.predict(test_images)
 
     confusion_matrix = metrics.confusion_matrix(test_class, predict)
-    confusion_matrix = np.vstack([confusion_matrix, confusion_matrix.sum(0, keepdims=True)])
-    confusion_matrix = np.hstack([confusion_matrix, confusion_matrix.sum(1, keepdims=True)])
     logger.info(f"confusion_matrix=\n{confusion_matrix}")
+    confusion_matrix_prob = confusion_matrix / confusion_matrix.sum(1, keepdims=True)
+    logger.info(f"confusion_matrix_prob=\n{confusion_matrix_prob}")
+
     ac_score = metrics.accuracy_score(test_class, predict)
     logger.info(f"{ac_score=}")
+
+    class_acc = np.diag(confusion_matrix_prob)
+    logger.info(f"best  {class_acc.argmax()}: {class_acc.max()}")
+    logger.info(f"worst {class_acc.argmin()}: {class_acc.min()}")
+
+    max_index = np.unravel_index((confusion_matrix * (1 - np.eye(10))).argmax(), confusion_matrix.shape)
+    logger.info(f"{max_index=}: {confusion_matrix[max_index]}")
+
     classification_report = metrics.classification_report(test_class, predict, digits=4)
     logger.info(f"classification_report=\n{classification_report}")
 
