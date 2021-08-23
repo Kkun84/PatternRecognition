@@ -5,7 +5,7 @@ glob2==0.7
 hydra-core==0.11.3
 ipython==7.16.1
 json5==0.9.5
-jupyterlab==2.1.5
+jupyterlab==2.2.10
 matplotlib==3.2.2
 more-itertools==8.4.0
 notebook==6.0.3
