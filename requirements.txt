@@ -3,7 +3,7 @@ scipy==1.5.1
 docopt==0.6.2
 glob2==0.7
 hydra-core==0.11.3
-ipython==7.16.1
+ipython==7.16.3
 json5==0.9.5
 jupyterlab==2.1.5
 matplotlib==3.2.2
